@@ -1,0 +1,111 @@
+<nav class="navbar navbar-light">
+  <div class="container">
+    
+    <div class="d-flex">
+      <button (click)="onAdd()" class="btn btn-dark  btn-no-border" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Department</button>
+    </div>
+
+  </div>
+
+</nav>
+
+<div class="main">
+  <section class="dashboard mt-3">
+    <div class="container">
+      <table class="table table-responsive table-bordered ">
+        <thead>
+          <tr class="table-dark">
+            <th>ID</th>
+            <th>Dept Name</th>
+            <th>Dept Section</th>
+            <th>Section Description</th>
+            <th>M-Dept</th>
+            <th class="text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-striped" *ngFor="let row of departmentData" >
+            <td>{{row.id}}</td>
+            <td>{{row.deptName}}</td>
+            <td>{{row.deptSection}}</td>
+            <td>{{row.secDescription}}</td>
+            <td>{{row.mdept}}</td>
+
+
+            
+            <td class="text-center">
+              <button (click)="onEdit(row)" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-sm btn-success mx-1 ">Edit</button>
+              <button (click)="deleteDepartment(row)" class="btn btn-sm btn-danger ">Delete</button>
+              
+            </td>
+            <!-- <td class="text-center" *ngFor="let emp of employeeData">
+              <button (click)="onEdit(emp)" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                class="btn btn-sm btn-outline-dark">Edit</button>
+              <button (click)="deleteEmployee(emp)" class="btn btn-sm btn-outline-danger mx-2">Delete</button>
+            </td> -->
+          </tr>
+ 
+  
+        </tbody>
+      </table>
+    </div>
+  
+  </section>
+</div>
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl"> <!-- Use modal-lg class to make the modal larger -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Department Form</h1>
+        <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="departmentForm">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="mb-3">
+                <label for="companyName" class="form-label">Department Section  :</label>
+                <input type="text" formControlName="deptSection" class="form-control rounded-0" id="companyName" name="companyName">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="mb-3">
+                <label for="industry" class="form-label">Section Description :</label>
+                <input type="text" formControlName="secDescription" class="form-control rounded-0" id="address1" name="industry">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="mb-3">
+                <label for="location" class="form-label">Select M-Department:</label>
+                <select formControlName="mdept" class="form-select form-control" id="departmentSelect">
+                  <option value="" disabled selected>Select a department</option>
+                  <option *ngFor="let department of departments" [value]="department">{{ department }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="mb-3">
+                <label for="location" class="form-label">Department Name :</label>
+                <input type="text" formControlName="deptName" class="form-control rounded-0" id="address2" name="location">
+              </div>
+            </div>
+           
+          </div>
+          <!-- Add similar rows and columns as needed for additional fields -->
+          
+     
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="cancel" (click)="onClose()" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-dark text-white">Add Department</button> -->
+        <button type="submit" *ngIf="showAdd" (click)="addNewData()"  class="btn btn-dark">Add Department</button>
+        <button type="submit" (click)="  updateDepartment()"  *ngIf="showUpdate"  class="btn btn-dark">Update
+          Department</button>
+      </div>
+    </div>
+  </div>
+</div>
